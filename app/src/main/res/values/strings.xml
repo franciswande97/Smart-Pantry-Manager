@@ -9,4 +9,8 @@
     <string name="add_ingredient">Add ingredient</string>
     <string name="quantity_unit_format">%1$s %2$s</string>
     <string name="expires_format">Expires: %1$s</string>
+    <string name="ingredient_name">Ingredient name</string>
+    <string name="quantity">Quantity</string>
+    <string name="unit">Unit</string>
+    <string name="expiry_date_optional">Expiry date (optional)</string>
 </resources>

@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
+import android.content.Intent;
 
 /** The Pantry List screen: shows every ingredient stored in the database. */
 public class PantryFragment extends Fragment implements PantryAdapter.OnItemActionListener {
@@ -42,7 +43,7 @@ public class PantryFragment extends Fragment implements PantryAdapter.OnItemActi
 
         // Wired to the Add/Edit screen in Step 6
         fab.setOnClickListener(v ->
-                Toast.makeText(requireContext(), "Add screen coming in Step 6", Toast.LENGTH_SHORT).show());
+                startActivity(new Intent(requireContext(), AddEditIngredientActivity.class)));
 
         return root;
     }
@@ -70,7 +71,9 @@ public class PantryFragment extends Fragment implements PantryAdapter.OnItemActi
 
     @Override
     public void onEdit(PantryItem item) {
-        Toast.makeText(requireContext(), "Edit screen coming in Step 6", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(requireContext(), AddEditIngredientActivity.class);
+        intent.putExtra(AddEditIngredientActivity.EXTRA_ITEM_ID, item.getId());
+        startActivity(intent);
     }
 
     @Override
