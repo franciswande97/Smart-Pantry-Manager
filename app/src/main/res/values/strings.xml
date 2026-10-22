@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">SmartPantry</string>
+    <string name="nav_pantry">Pantry</string>
+    <string name="nav_recipes">Recipes</string>
+    <string name="nav_settings">Settings</string>
+    <string name="delete_ingredient">Delete ingredient</string>
+    <string name="my_pantry">My Pantry</string>
+    <string name="your_pantry_is_empty_ntap_to_add_your_first_ingredient">Your pantry is empty.\nTap + to add your first ingredient.</string>
+    <string name="add_ingredient">Add ingredient</string>
+    <string name="quantity_unit_format">%1$s %2$s</string>
+    <string name="expires_format">Expires: %1$s</string>
 </resources>
