@@ -75,4 +75,20 @@ public class RecipeMatcherTest {
         List<RecipeIngredient> i = new ArrayList<>(Arrays.asList(ing(1, "Sugar", 250, "g")));
         assertEquals(1, strict(p, i).size());
     }
+
+    @Test
+    public void gramsInPantry_satisfySpoonMeasureInRecipe() {
+        // 2 tbsp sugar = 30 ml, which is about 25.5 g, so 30 g is enough
+        List<PantryItem> p = Arrays.asList(pantry("Sugar", 30, "g"));
+        List<RecipeIngredient> i = Arrays.asList(ing(1, "Sugar", 2, "tbsp"));
+        assertEquals(1, strict(p, i).size());
+    }
+
+    @Test
+    public void unknownIngredient_isNeverComparedAcrossUnitTypes() {
+        // No density is known for this item, so grams cannot satisfy tablespoons
+        List<PantryItem> p = Arrays.asList(pantry("Mystery Spice", 100, "g"));
+        List<RecipeIngredient> i = Arrays.asList(ing(1, "Mystery Spice", 2, "tbsp"));
+        assertTrue(strict(p, i).isEmpty());
+    }
 }

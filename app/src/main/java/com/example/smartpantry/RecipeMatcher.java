@@ -77,7 +77,7 @@ public final class RecipeMatcher {
     private static Map<String, Double> buildAvailableMap(List<PantryItem> pantry) {
         Map<String, Double> map = new HashMap<>();
         for (PantryItem item : pantry) {
-            UnitConverter.Measure m = UnitConverter.toBase(item.getQuantity(), item.getUnit());
+            UnitConverter.Measure m = comparable(item.getName(), UnitConverter.toBase(item.getQuantity(), item.getUnit()));
             String k = key(item.getName(), m.dimension);
             double current = map.containsKey(k) ? map.get(k) : 0;
             map.put(k, current + m.amount);
@@ -98,10 +98,24 @@ public final class RecipeMatcher {
 
     /** True if the pantry holds at least the required amount, in a comparable unit type. */
     private static boolean isSatisfied(RecipeIngredient ri, Map<String, Double> available) {
-        UnitConverter.Measure required = UnitConverter.toBase(ri.getQuantity(), ri.getUnit());
+        UnitConverter.Measure required = comparable(ri.getName(), UnitConverter.toBase(ri.getQuantity(), ri.getUnit()));
         if (required.dimension == UnitConverter.Dimension.UNKNOWN) return false;
 
         Double have = available.get(key(ri.getName(), required.dimension));
         return have != null && have + EPSILON >= required.amount;
+    }
+
+    /**
+     * If the ingredient's density is known, converts a volume to a mass so that spoon/cup
+     * measures can be compared with gram measures. Otherwise returns the measure unchanged.
+     */
+    private static UnitConverter.Measure comparable(String name, UnitConverter.Measure m) {
+        if (m.dimension == UnitConverter.Dimension.VOLUME) {
+            Double density = DensityTable.gramsPerMl(name);
+            if (density != null) {
+                return new UnitConverter.Measure(m.amount * density, UnitConverter.Dimension.MASS);
+            }
+        }
+        return m;
     }
 }
