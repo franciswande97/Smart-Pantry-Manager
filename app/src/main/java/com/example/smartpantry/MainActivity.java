@@ -38,7 +38,11 @@ public class MainActivity extends AppCompatActivity {
                 showFragment(new PantryFragment());
                 return true;
             }
-            // Recipes and Settings screens are added in later steps
+            if (id == R.id.nav_recipes) {
+                showFragment(new SuggestedRecipesFragment());
+                return true;
+            }
+            // Settings screen is added in a later step
             Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show();
             return false;
         });
