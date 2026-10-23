@@ -42,8 +42,10 @@ public class MainActivity extends AppCompatActivity {
                 showFragment(new SuggestedRecipesFragment());
                 return true;
             }
-            // Settings screen is added in a later step
-            Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show();
+            if (id == R.id.nav_settings) {
+                showFragment(new SettingsFragment());
+                return true;
+            }
             return false;
         });
 

@@ -62,7 +62,8 @@ public class PantryFragment extends Fragment implements PantryAdapter.OnItemActi
 
             Activity activity = getActivity();
             if (activity == null) return;           // screen was closed while the query ran
-            activity.runOnUiThread(() -> {          // UI may only be touched from the main thread
+            activity.runOnUiThread(() -> {
+                adapter.setHighlightExpiry(AppPreferences.isExpiryHighlightEnabled(appContext));// UI may only be touched from the main thread
                 adapter.setItems(items);
                 emptyView.setVisibility(items.isEmpty() ? View.VISIBLE : View.GONE);
             });
